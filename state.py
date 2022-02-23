@@ -8,9 +8,9 @@ class State():
 
 	plog = 0
 
-	def __init__(self, l1=0, l2=0, tc=0, k1=0, k2=0):
-		lambda_1 = l1 
-		lambda_2 = l2
-		t_change = tc 
-		step_1 = k1
-		step_2 = k2 
+	def __init__(self, l1, l2, tc, k1, k2):
+		self.lambda_1 = l1 
+		self.lambda_2 = l2
+		self.t_change = tc 
+		self.step_1 = k1
+		self.step_2 = k2 
