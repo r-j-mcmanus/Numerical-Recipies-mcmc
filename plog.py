@@ -27,7 +27,7 @@ class Log_Probability_Calculator():
 			self.event_cumulative_delta_times.append(data[i]-data[0])
 			self.event_cumulative_log_delta_times.append(self.event_cumulative_log_delta_times[-1]+np.log(data[i]-data[i-1]))
 
-	def find_probability(self, state):
+	def find_log_probability(self, state):
 
 		total_time = 0
 		#where do change lambda

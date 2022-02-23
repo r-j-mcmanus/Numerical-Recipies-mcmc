@@ -20,8 +20,7 @@ start_state = State(2,4,200,2,2)
 data = makeData(true_state)
 print(data)
 
-
 log_Probability_Calculator = Log_Probability_Calculator(data)
-print(log_Probability_Calculator.find_probability(start_state))
+print(log_Probability_Calculator.find_log_probability(start_state))
 
 
