@@ -1,6 +1,11 @@
 
 import numpy as np
 
+from scipy.special import gammaln
+
+def LogFactorial(n):
+	return gammaln(n+1)
+
 def makeData():
 """
 	As k = 1, we have that the data follows an exponential distribution.
@@ -9,7 +14,6 @@ def makeData():
 
 	where tau = t(i+k) - t(i) is the time step between events
 """
-
 	lambda_1_true = 1
 	lambda_2_true = 3
 	t_change_true = 100

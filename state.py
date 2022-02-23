@@ -1,4 +1,4 @@
-class state():
+class State():
 	"""Contains the components of the data"""
 	lambda_1 = 0
 	lambda_2 = 0

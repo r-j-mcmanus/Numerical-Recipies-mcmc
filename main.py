@@ -13,27 +13,5 @@
 import state
 import utility
 
-"""
-To begin we generate the data:
-"""
-
-lambda_1_true = 1
-lambda_2_true = 3
-t_change_true = 100
-step_1_true = 1
-step_1_true = 1
-total_number_of_data = 200
-
-"""
-	As k = 1, we have that the data follows an exponential distribution.
-
-	p(tau | lambda) = lambda exp(- lambda tau)
-
-	where tau = t(i+k) - t(i) is the time step between events
-"""
-
-
-
-
 print(data)
 
