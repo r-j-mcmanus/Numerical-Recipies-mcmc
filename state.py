@@ -14,3 +14,7 @@ class State():
 		self.t_change = tc 
 		self.step_1 = k1
 		self.step_2 = k2 
+
+	def print(self):
+		attrs = vars(self)
+		print(', '.join("%s: %s" % item for item in attrs.items()))

@@ -16,30 +16,37 @@ class Log_Probability_Calculator():
 	"""
 
 	event_number = 0
-	event_cumulative_delta_times = [0]
-	event_cumulative_log_delta_times = [0]
+	event_cumulative_times = []
+	event_cumulative_log_delta_times = []
 
 	def __init__(self,  data):
 		self.event_number = len(data)
 		
-		#as p is a function of the summation of delta time and log delta time, we compute these from the start for conveniance
+		"""
+		as p is a function of the summation of delta time and 
+		log delta time, we compute these from the start for conveniance.
+
+		Note that the data is already in the form of time since the start
+		"""
+		self.event_cumulative_times = data
+
+		self.event_cumulative_log_delta_times = [np.log(data[0])]
 		for i in range(1,self.event_number):
-			self.event_cumulative_delta_times.append(data[i]-data[0])
 			self.event_cumulative_log_delta_times.append(self.event_cumulative_log_delta_times[-1]+np.log(data[i]-data[i-1]))
 
-	def find_log_probability(self, state):
+		print("event_cumulative_times", self.event_cumulative_times)
 
-		total_time = 0
-		#where do change lambda
-		for i in range(len(self.event_cumulative_delta_times)):
-			total_time += self.event_cumulative_delta_times[i];
-			if total_time > state.t_change:
-				event_number_lower = i
-				event_number_upper = len(self.event_cumulative_delta_times) - event_number_lower
-				sum_lower = self.event_cumulative_delta_times[i]
-				sum_upper = self.event_cumulative_delta_times[-1] - sum_lower
+	def find_log_probability(self, state):
+		# finding where to change from one distribtuion to the next
+		for i in range(len(self.event_cumulative_times)):
+			if self.event_cumulative_times[i] >= state.t_change:
+				event_number_lower = i #number of events that happen before the distribtuion change
+				event_number_upper = len(self.event_cumulative_times) - event_number_lower #number of events that happen after the distribtuion change
+				sum_lower = self.event_cumulative_times[i]
+				sum_upper = self.event_cumulative_times[-1] - sum_lower
 				sum_log_lower = self.event_cumulative_log_delta_times[i]
 				sum_log_upper = self.event_cumulative_log_delta_times[-1] - sum_log_lower
+				break
 
 		log_probability = 0
 

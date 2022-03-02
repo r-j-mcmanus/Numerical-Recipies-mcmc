@@ -13,14 +13,27 @@
 from state import State
 from plog import Log_Probability_Calculator
 from utility import makeData
+from proposal import Proposal_Generator
+from mcmcstep import MCMC_Step
 
-true_state = State(1,3,100,1,1)
-start_state = State(2,4,200,2,2)
+true_state = State(3,2,10,5,1)
+start_state = State(3,2,10,5,1)
 
-data = makeData(true_state)
+"""
+the data is a series of times t_i, the time since the start 
+of the experiment that the event happened
+"""
+data = makeData(true_state,10)
+
 print(data)
 
 log_Probability_Calculator = Log_Probability_Calculator(data)
-print(log_Probability_Calculator.find_log_probability(start_state))
+print("log probability", log_Probability_Calculator.find_log_probability(start_state))
 
+proposal_Generator = Proposal_Generator(0.01) 
 
+start_state.print()
+
+#MCMC_Step(10, start_state, log_Probability_Calculator, proposal_Generator)
+
+#start_state.print()

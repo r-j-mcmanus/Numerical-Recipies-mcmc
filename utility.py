@@ -6,7 +6,7 @@ from scipy.special import gammaln
 def LogFactorial(n):
 	return gammaln(n+1)
 
-def makeData(state):
+def makeData(state, total_number_of_data):
 	"""
 	As k = 1, we have that the data follows an exponential distribution.
 
@@ -19,23 +19,27 @@ def makeData(state):
 	t_change_true = state.t_change
 	step_1_true = state.step_1
 	step_2_true = state.step_2
-	total_number_of_data = 200
 
 	data = []
 	t_accumulative = 0
-	while True:
-		print(lambda_1_true , np.random.uniform())
-
+	no_events_since_last_recording = 0
+	while len(data) < total_number_of_data and t_accumulative <= t_change_true:
 		dt = 1/lambda_1_true * np.log(lambda_1_true / np.random.uniform())
 		t_accumulative += dt 
-		if t_accumulative <= t_change_true:
+		no_events_since_last_recording += 1
+		if no_events_since_last_recording == step_1_true:
+			no_events_since_last_recording = 0
 			data.append(t_accumulative)
-		else:
+		if t_accumulative >= t_change_true:
 			break
 
-	for i in range(len(data),total_number_of_data):
+	no_events_since_last_recording = 0
+	while len(data) < total_number_of_data:
 		dt = 1/lambda_1_true * np.log(lambda_1_true / np.random.uniform())
 		t_accumulative += dt 
-		data.append(t_accumulative)
+		no_events_since_last_recording += 1
+		if no_events_since_last_recording == step_2_true:
+			no_events_since_last_recording = 0
+			data.append(t_accumulative)
 
 	return data
